@@ -6,7 +6,6 @@ SPARSE.* files
 
 Author: Ankit Bansal
 Email: arbansal@umich.edu
-Copyrights reserved 2017
 """
 import numpy as np
 import matplotlib.pyplot as plt
@@ -134,23 +133,23 @@ def spamIndicative(prob_wj_spam, prob_wj_ham):
     res = list(sorted(spam_indicative, key=spam_indicative.__getitem__, reverse=True))
     return res[0:5]
     
- 
-freq_spam_train, freq_ham_train, spam, ham, N = readData('SPARSE.TRAIN')
-class_prior_spam, prob_wj_spam, class_prior_ham, prob_wj_ham = estimateParams(freq_spam_train, freq_ham_train, spam, ham, N)
-test_error = predict(class_prior_spam, prob_wj_spam, class_prior_ham, prob_wj_ham)
-print('Test error: ', test_error)
-
-test_errors = []
-X = ['50', '100', '200', '400', '800', '1400']
-for i,val in enumerate(X):
-    freq_spam_train, freq_ham_train, spam, ham, N = readData('SPARSE.TRAIN.'+val)
+if __name__ == '__main__': 
+    freq_spam_train, freq_ham_train, spam, ham, N = readData('SPARSE.TRAIN')
     class_prior_spam, prob_wj_spam, class_prior_ham, prob_wj_ham = estimateParams(freq_spam_train, freq_ham_train, spam, ham, N)
     test_error = predict(class_prior_spam, prob_wj_spam, class_prior_ham, prob_wj_ham)
-    print('Test error for SPARSE.TRAIN.'+val+': ', test_error)
-    test_errors += [test_error]
-
-plt.plot(X,test_errors)
-plt.ylabel('Test Error')
-plt.xlabel('Training Size')
-
-spamIndicative(prob_wj_spam, prob_wj_ham)
+    print('Test error: ', test_error)
+    
+    test_errors = []
+    X = ['50', '100', '200', '400', '800', '1400']
+    for i,val in enumerate(X):
+        freq_spam_train, freq_ham_train, spam, ham, N = readData('SPARSE.TRAIN.'+val)
+        class_prior_spam, prob_wj_spam, class_prior_ham, prob_wj_ham = estimateParams(freq_spam_train, freq_ham_train, spam, ham, N)
+        test_error = predict(class_prior_spam, prob_wj_spam, class_prior_ham, prob_wj_ham)
+        print('Test error for SPARSE.TRAIN.'+val+': ', test_error)
+        test_errors += [test_error]
+    
+    plt.plot(X,test_errors)
+    plt.ylabel('Test Error')
+    plt.xlabel('Training Size')
+    
+    spamIndicative(prob_wj_spam, prob_wj_ham)
