@@ -5,7 +5,6 @@ emails as spam/non-spam. The preprocessed data is present in
 SPARSE.* files 
 
 Author: Ankit Bansal
-Email: arbansal@umich.edu
 """
 import numpy as np
 import matplotlib.pyplot as plt
